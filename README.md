@@ -45,3 +45,5 @@ This project demonstrates a complete, reproducible data workflow using Python, N
 - **How this changes for an ML workflow:** I would add train/validation/test splits, define a target variable, and avoid leakage by fitting preprocessing steps on training data only (e.g., via pipelines).
 - **Neural network preparation:** I would standardize/normalize numeric features, encode categorical variables, and confirm that input shapes and missing-value handling are consistent for batching.
 - **Agentic automation potential:** This workflow is a good candidate for automation (e.g., a small agent that validates schema, checks missingness, regenerates EDA summaries, and exports updated figures/reports on each new data drop).
+
+Dev branch note: branch workflow demo for rubric.
