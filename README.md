@@ -1,49 +1,57 @@
-# AI Programming Foundations Project — Reproducible Data Workflow
+# AI Programming Foundations Project: Reproducible Data Workflow
 
-## Project Description
-This project demonstrates a complete, reproducible data workflow using Python, NumPy, Pandas, and Matplotlib/Seaborn. It loads a real dataset, performs cleaning and transformation with reusable functions, runs exploratory analysis, produces labeled visualizations, and summarizes findings.
+**Author:** Frank Allen Motley  
+**Dataset:** Titanic (Seaborn example dataset) — https://raw.githubusercontent.com/mwaskom/seaborn-data/master/titanic.csv  
 
-## What I Built
-- `data_workflow.ipynb`: End-to-end workflow (ingestion → cleaning → EDA → visualization → interpretation)
-- `module_summary.pdf`: Written report with citations (APA-style sections)
-- `requirements.txt`: Environment snapshot for reproducibility
-- `figures/`: Saved visualizations (Figure 1–3)
+This project demonstrates a complete, reproducible data workflow using Python, NumPy, Pandas, and Matplotlib/Seaborn. It loads a real dataset, cleans and transforms it with reusable functions, performs exploratory analysis, creates labeled visualizations, and summarizes insights with notes on limitations and responsible data handling.
 
-## Dataset
-- Titanic dataset (Seaborn example dataset)  
-  Source: https://raw.githubusercontent.com/mwaskom/seaborn-data/master/titanic.csv
+## What I built
+- `data_workflow.ipynb` — end-to-end workflow (ingestion → cleaning → EDA → visualizations → interpretation)
+- `module_summary.pdf` — written report with academic citations and references
+- `requirements.txt` — reproducible dependency list for running the notebook
 
-## How to Run the Project
-1. **Clone the repo** and move into the project folder:
-   ```bash
-   git clone <your-repo-url>
-   cd ai-programming-foundations-project
-   ```
+## How to run
+### Option A: Conda (recommended for clean reproducibility)
+```bash
+conda create -n aiwf python=3.11 -y
+conda activate aiwf
+pip install -r requirements.txt
+python -m ipykernel install --user --name aiwf --display-name "Python (aiwf)"
+jupyter notebook
+```
 
-2. **Create and activate a virtual environment** (recommended), then install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
+In Jupyter: **Kernel → Change Kernel → Python (aiwf)**, then **Restart & Run All**.
 
-3. **Open the notebook**:
-   ```bash
-   jupyter notebook
-   ```
-   Then open `data_workflow.ipynb` and run all cells top-to-bottom.
+### Option B: Pip (existing environment)
+```bash
+pip install -r requirements.txt
+jupyter notebook
+```
 
-4. **Generate `requirements.txt` in your environment** (required for submission):
-   ```bash
-   pip freeze > requirements.txt
-   ```
+## Outputs
+- Figures are saved to `./figures/`:
+  - `figure1_survival_by_sex.png`
+  - `figure2_survival_by_class.png`
+  - `figure3_age_by_survival.png`
 
-## Responsible Practice: Bias & Data Quality (Reflection)
-- **Where bias can be introduced:** Missing-data imputation (e.g., filling ages with a median) can reduce variance and may change group differences. Dropping rows with missing values can also disproportionately remove certain groups if missingness is not random.
-- **What I did here:** I used simple, transparent imputation rules (median for numeric, mode for categorical) and kept the limitations explicit in the notebook and report.
-- **What I would do next:** Compare results across multiple handling strategies (drop vs. impute; group-wise impute), and document dataset context and limitations more formally (datasheet-style documentation).
+## Reproducibility notes
+- This project is tested with **NumPy 1.x** (specifically `numpy==1.26.4`).
+- If you see an error like: *“a module compiled using NumPy 1.x cannot be run in NumPy 2.x”*, create a clean environment and install from `requirements.txt` (NumPy is pinned to 1.x to avoid binary compatibility issues).
 
-## Future Integration Reflections (Required)
-- **How this changes for an ML workflow:** I would add train/validation/test splits, define a target variable, and avoid leakage by fitting preprocessing steps on training data only (e.g., via pipelines).
-- **Neural network preparation:** I would standardize/normalize numeric features, encode categorical variables, and confirm that input shapes and missing-value handling are consistent for batching.
-- **Agentic automation potential:** This workflow is a good candidate for automation (e.g., a small agent that validates schema, checks missingness, regenerates EDA summaries, and exports updated figures/reports on each new data drop).
+To regenerate dependencies from your environment:
+```bash
+pip freeze > requirements.txt
+```
 
-Dev branch note: branch workflow demo for rubric.
+## Responsible practice (bias and data quality)
+- **Imputation risk:** Filling missing ages with the median and missing categorical values with the mode can reduce variance and may shift group comparisons.
+- **Historical/selection bias:** The Titanic passenger list is not representative of broader populations; outcomes reflect a specific historical and social context.
+- **Next steps to reduce risk:** Try sensitivity checks (e.g., compare results with/without imputation), stratified analysis, and clearer documentation of missingness patterns.
+
+## Git / GitHub workflow
+This repository includes multiple commits and at least one additional branch (`dev`) to demonstrate professional version control.
+
+## Future integration reflections
+- **How ML workflow changes:** Add train/validation/test splits, prevent leakage (fit preprocessing on train only), and evaluate models with appropriate metrics.
+- **Neural network preparation:** Normalize/scale numeric features, encode categoricals consistently, and define a stable feature schema; handle missingness with a pipeline.
+- **Agentic automation potential:** An agent could automate data profiling, generate EDA summaries/plots, run reproducibility checks, and draft a report while logging decisions for review.
